@@ -1,0 +1,26 @@
+@startuml
+
+package order <<Aggregate>>  {
+
+    class Order <<Aggregate Root>> {
+        userId: String
+        updateOrderItemPrice()
+        updateAddress()
+        {static} create(): Order
+    }
+
+    class "Address" as a <<Value Object>>{
+        zipCode: String
+        detail: String
+    }
+
+    class OrderItem <<Entity>> {
+        quality: Number
+        price: Money
+    }
+
+    Order "1" *-- "1" a
+    Order "1" *-- "1..99" OrderItem
+}
+
+@enduml
