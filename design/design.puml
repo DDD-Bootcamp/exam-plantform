@@ -1,0 +1,122 @@
+@startuml
+
+package "paperContext" {
+    class PaperApplicationService {
+        Paper create()
+    }
+
+    package "domain" as d0 {
+        class Paper <<Aggregate Root>> <<Entity>> {
+            Date createTime
+            TeacherId teacherId
+            + create()
+            + update()
+        }
+
+        class "Quiz" as q1 <<Entity>> {
+            quizId
+            int score
+        }
+
+        interface PaperRepository <<Repository>> {
+        }
+
+        Paper "1" *-- "1" TeacherId :<<call>>
+        Paper "1" *-- "*" q1
+        Paper -[hidden]-->PaperRepository
+    }
+
+    class PaperJPARepository{}
+
+    PaperApplicationService ..> Paper :<<call>>
+    PaperRepository <|-- PaperJPARepository :<<realize>>
+}
+
+package "examinationContext" {
+    class ExaminationApplicationService {
+        Date examDuration
+        Examination create()
+    }
+
+    package "domain" as d1 {
+        class Examination <<Aggregate Root>> <<Entity>> {
+            Date createTime
+            public Examination create()
+        }
+
+        class ExaminationId <<Value Object>> {
+            String uuid
+        }
+
+
+        class PaperId <<Value Object>>{
+            String id
+        }
+
+        class "Quiz" as q2 <<Value Object>>{
+            String desc
+            String referenceAnswer
+            int score
+        }
+
+        interface ExaminationRepository{}
+
+        Examination "1" *-- "1" PaperId
+        Examination "1" *-- "1" ExaminationId
+        Examination "1" *-- "*" q2
+        Examination -[hidden]--> ExaminationRepository
+    }
+
+    class ExaminationJPARepository{}
+
+    ExaminationRepository <|-- ExaminationJPARepository
+    ExaminationApplicationService --> Examination
+}
+
+package "examSheetContext" {
+    class ExamSheetApplicationService {
+        ExamSheet assign()
+        void submitAnswer()
+        void handIn()
+    }
+
+    package "domain" as d3 {
+        class ExamSheet <<Aggregate Root>> <<Entity>> {
+            Date StartTime
+            Date handInTime
+            StudentId
+            ExaminationId examinationId
+            void submitAnswer(QuizId quizId, Answer answer)
+            void review()
+            void handIn()
+        }
+
+        class Answer <<Value Object>> {
+            String answer
+            Date submitTime
+            int Score
+        }
+
+        class Quiz <<Entity>> {
+            String desc
+            String referenceAnswer
+            int score
+        }
+
+        interface ExamSheetRepository{}
+
+        ExamSheet "1" *-- "1" StudentId
+        ExamSheet "1" *-- "*" Quiz
+        Quiz "1" *-- "1" Answer
+
+    }
+
+    ExamSheetApplicationService --> ExamSheet
+    ExamSheet -[hidden]--> ExamSheetRepository
+    ExamSheetRepository <|-- ExamSheetJPARepository
+
+
+    class ExamSheetJPARepository{}
+}
+
+@enduml
