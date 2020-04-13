@@ -1,0 +1,61 @@
+@startuml
+class Teacher <<Entity>> {
+    id: String
+}
+
+class Student <<Entity>> {
+    id: String
+}
+package Paper <<Aggregate>>  {
+    class Paper <<Aggregate Root>> {
+        id: String
+        blankQuiz: List
+        updatePaper()
+        {static} create(): Paper
+    }
+
+    class "BlankQuiz" as blankQuiz <<Value Object>>{
+        id: String
+        question: String
+        referenceAnswer: String
+        score: Number
+    }
+    Paper "1" *-- "n" blankQuiz
+    Paper "n" *-- "1" Teacher
+}
+
+package AnswerSheet <<Aggregate>> {
+    class AnswerSheet <<Aggregate Root>> {
+        id: String
+        studentId: String
+        Score: Number
+        answer: List
+        handInAnswerSheet()
+        reviewedAnswerSheet()
+        {static} create(): AnswerSheet
+    }
+
+    class Answer <<Entity>>{
+        id: String
+        blankQuizId: String
+        submitAnswer()
+    }
+    AnswerSheet "1" *-- "1" Student
+    AnswerSheet "1" *-- "n" Answer
+}
+
+package Examination <<Aggregate>> {
+    class Examination <<Aggregate Root>> {
+        id: String
+        paper: Paper
+        blankQuizNumber: Number
+        examTime: Date
+        studentId: List
+        finishExmination()
+        {static} create(): Examination
+    }
+    Examination "1" *-- "1" Teacher
+    Examination "1" *-- "n" Student
+    Examination "1" *-- "1" Paper
+}
+@enduml
