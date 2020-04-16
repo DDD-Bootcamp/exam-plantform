@@ -1,4 +1,4 @@
-package exam.paperContext.domain.model;
+package exam.paperContext.domain.model.paper;
 
 class TooManyQuizzesException extends IllegalArgumentException {
 

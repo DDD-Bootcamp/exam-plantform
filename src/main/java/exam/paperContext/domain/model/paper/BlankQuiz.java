@@ -1,16 +1,22 @@
-package exam.paperContext.domain.model;
+package exam.paperContext.domain.model.paper;
 
 import exam.paperContext.domain.shared.ValueObject;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Objects;
 
 @Getter
-@AllArgsConstructor
 class BlankQuiz implements ValueObject<BlankQuiz> {
-    private QuizId quizId;
+    private String quizId;
     private int score;
+
+    public BlankQuiz(String quizId, int score) {
+        if(score > 100) {
+            throw new IllegalScoreException(score);
+        }
+        this.quizId = quizId;
+        this.score = score;
+    }
 
     @Override
     public boolean sameValueAs(BlankQuiz other) {

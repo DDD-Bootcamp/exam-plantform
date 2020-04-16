@@ -1,4 +1,4 @@
-package exam.paperContext.domain.model;
+package exam.paperContext.domain.model.paper;
 
 import exam.paperContext.domain.shared.ValueObject;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,11 @@ import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
-class TeacherId implements ValueObject<TeacherId> {
+class PaperId implements ValueObject<PaperId> {
     private String id;
 
     @Override
-    public boolean sameValueAs(TeacherId other) {
+    public boolean sameValueAs(PaperId other) {
         return equals(other);
     }
 
@@ -20,8 +20,8 @@ class TeacherId implements ValueObject<TeacherId> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TeacherId teacherId = (TeacherId) o;
-        return Objects.equals(id, teacherId.id);
+        PaperId paperId = (PaperId) o;
+        return Objects.equals(id, paperId.id);
     }
 
     @Override
