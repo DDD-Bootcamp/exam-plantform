@@ -1,6 +1,7 @@
 package exam.paperContext.domain.model.paper;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PaperTest {
+
+
     @Test
     public void should_create_paper_with_new() {
         final PaperId paperId = new PaperId("paper-a4c68d5d-6c18-4707-b8c2-1fd18846ebf1");
@@ -32,16 +35,18 @@ public class PaperTest {
         assertThat(paper.getQuizzes().size(), is(2));
     }
 
-    @Test(expected = TooManyQuizzesException.class)
+    @Test
     public void should_quizzes_quantity_less_than_20() {
-        final PaperId paperId = new PaperId("paper-a4c68d5d-6c18-4707-b8c2-1fd18846ebf1");
-        final String teacherId = "teacher-6b35fdd8-31de-4af4-9420-3331058260c5";
+        Assertions.assertThrows(IllegalQuizzesCountException.class, ()-> {
+            final PaperId paperId = new PaperId("paper-a4c68d5d-6c18-4707-b8c2-1fd18846ebf1");
+            final String teacherId = "teacher-6b35fdd8-31de-4af4-9420-3331058260c5";
 
-        List<BlankQuiz> blankQuizzes = new ArrayList<>();
-        for(int i=0; i<21; i++) {
-            blankQuizzes.add(new BlankQuiz("quiz-" + i, 2));
-        }
+            List<BlankQuiz> blankQuizzes = new ArrayList<>();
+            for(int i=0; i<21; i++) {
+                blankQuizzes.add(new BlankQuiz("quiz-" + i, 2));
+            }
 
-        Paper paper = Paper.assemble(paperId, teacherId, blankQuizzes);
+            Paper paper = Paper.assemble(paperId, teacherId, blankQuizzes);
+        });
     }
 }

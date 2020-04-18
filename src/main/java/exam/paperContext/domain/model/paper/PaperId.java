@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
-class PaperId implements ValueObject<PaperId> {
+public class PaperId implements ValueObject<PaperId> {
     private String id;
 
     @Override
@@ -27,5 +27,10 @@ class PaperId implements ValueObject<PaperId> {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 }

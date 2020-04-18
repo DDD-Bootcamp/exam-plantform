@@ -1,0 +1,13 @@
+@startuml
+actor Teacher
+Teacher -> PaperController : POST /paper
+PaperController -> PaperController: transform()
+PaperController -> PaperService : assemblePaper()
+PaperService -> PaperRepository: nextPaperId()
+entity Paper
+PaperService -> Paper : assemble()
+PaperService -> PaperRepository: save()
+database paperDB
+PaperRepository -> paperDB: INSERT ***
+
+@enduml

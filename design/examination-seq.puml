@@ -1,0 +1,12 @@
+@startuml
+actor Teacher
+Teacher -> ExaminationController : POST /examination
+ExaminationController -> ExaminationController: transform()
+ExaminationController -> ExaminationService : createExamination()
+ExaminationService -> ExaminationRepository: nextExaminationId()
+ExaminationService -> Examination : create()
+ExaminationService -> PaperRepository: save()
+database paperDB
+PaperRepository -> paperDB: INSERT ***
+
+@enduml

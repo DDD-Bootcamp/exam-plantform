@@ -1,0 +1,56 @@
+@startuml
+
+
+package paper <<Aggregate>> {
+    class Paper <<Aggregate Root>> {
+        paperId: PaperId
+        createTime: DateTime
+        teacherId: String
+        {static} assemble()
+        reassemble()
+    }
+
+    class "Quiz" as q1 <<Value Object>> {
+        quizId: QuizId
+        score: int
+    }
+
+    Paper "1" *-- "*" q1
+}
+
+
+package "examination" <<Aggregate>> {
+        class Examination <<Aggregate Root>> {
+            examinationId: ExaminationId
+            createTime: DateTime
+            dueTime: DateTime
+            duration: Time
+            {static} create(): Examination
+        }
+
+        class "Paper" as p2 <<Value Object>>{
+            paperId: String
+        }
+
+        interface "Quiz" as q2 <<Value Object>>{
+            String desc
+            int score
+        }
+
+        class BlankQuiz {
+            String referenceAnswer
+        }
+
+        class EssayQuiz {
+            Matrix matrix
+        }
+
+
+
+        Examination "1" *-- "1" p2
+        p2 "1" *-- "*" q2
+        q2 <|-right- BlankQuiz
+        q2 <|-left- EssayQuiz
+
+    }
+@enduml

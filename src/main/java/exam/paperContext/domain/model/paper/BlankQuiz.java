@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.Objects;
 
 @Getter
-class BlankQuiz implements ValueObject<BlankQuiz> {
+public class BlankQuiz implements ValueObject<BlankQuiz> {
     private String quizId;
     private int score;
 

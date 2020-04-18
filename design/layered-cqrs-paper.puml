@@ -1,0 +1,36 @@
+@startuml
+
+package layeredArch {
+    class "PaperController" as oc{}
+
+    class "PaperService" as os {
+        assemblePaper()
+    }
+
+    class "Paper" as od {
+        paperId: PaperId
+        quizzes: List<Quiz>
+        assemble()
+    }
+
+    interface PaperRepository {
+        save()
+    }
+
+    class PaperJPARepository {}
+
+    class ConcretePaperRepository {}
+
+    interface PaperJPARepository{}
+
+    oc ..> os :<write>
+    os ..> od
+    os ..> PaperRepository
+    oc .....> sqlExecutor :<read>
+
+    PaperRepository <|... ConcretePaperRepository
+    ConcretePaperRepository -right-> PaperJPARepository
+}
+
+
+@enduml

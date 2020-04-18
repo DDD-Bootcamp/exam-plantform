@@ -1,0 +1,37 @@
+@startuml
+
+package layeredArch {
+    class  PaperController {}
+
+    class PaperService {
+        assemblePaper()
+        reassemblePaper()
+    }
+
+    class "Paper" as od {
+        paperId: PaperId
+        quizzes: List<Quiz>
+        {static} assemble()
+        reassemble()
+    }
+
+    interface PaperRepository {
+        save()
+    }
+
+
+    class PaperJPARepository {}
+
+    class ConcretePaperRepository {}
+
+    interface PaperJPARepository{}
+
+    PaperController ..> PaperService
+    PaperService ..> od
+    PaperService ..> PaperRepository
+    PaperRepository <|.down. ConcretePaperRepository
+    ConcretePaperRepository -left-> PaperJPARepository
+}
+
+
+@enduml

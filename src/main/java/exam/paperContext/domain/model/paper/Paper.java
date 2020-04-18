@@ -21,11 +21,14 @@ public class Paper implements Entity<Paper> {
     }
 
     public static Paper assemble(PaperId paperId, String teacherId, List<BlankQuiz> blankQuizzes) {
-        if(blankQuizzes.size() > 20) {
-            throw new TooManyQuizzesException(blankQuizzes.size());
-        }
-
+        validateQuizzes(blankQuizzes);
         return new Paper(paperId, teacherId, blankQuizzes);
+    }
+
+    private static void validateQuizzes(List<BlankQuiz> blankQuizzes) {
+        if(blankQuizzes.size() > 20 || blankQuizzes.size() < 2) {
+            throw new IllegalQuizzesCountException(blankQuizzes.size());
+        }
     }
 
     public Collection<Object> getQuizzes() {
@@ -47,5 +50,11 @@ public class Paper implements Entity<Paper> {
     @Override
     public boolean sameIdentityAs(Paper other) {
         return paperId.sameValueAs(other.getPaperId());
+    }
+
+    public void reassemble(String teacherId, List<BlankQuiz> blankQuizzes) {
+        validateQuizzes(blankQuizzes);
+        this.teacherId = teacherId;
+        this.blankQuizzes = blankQuizzes;
     }
 }

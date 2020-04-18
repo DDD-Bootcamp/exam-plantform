@@ -1,0 +1,27 @@
+@startuml
+
+package threeLayer {
+    class PaperController
+
+    class PaperService {
+        assemblePaper()
+        reassemblePaper()
+    }
+
+
+    class Paper {
+        paperId: PaperId
+        quizzes: List<Quiz>
+    }
+
+    class PaperDAO {
+        save()
+    }
+
+
+    PaperController ..> PaperService
+    PaperService ..> Paper
+    PaperService ..> PaperDAO
+    PaperDAO .left.> Paper
+}
+@enduml
