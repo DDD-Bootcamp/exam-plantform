@@ -30,12 +30,6 @@ public class PaperService {
         return paperId;
     }
 
-    private List<BlankQuiz> blankQuizFrom(AssemblePaperCommand command) {
-        return command.getQuizzes().stream().map(quiz -> {
-            return new BlankQuiz(quiz.getQuizId(), quiz.getScore());
-        }).collect(Collectors.toList());
-    }
-
     public List<Paper> getAll() {
         return paperRepository.getAll();
     }
@@ -44,6 +38,13 @@ public class PaperService {
         final Paper paper = paperRepository.find(new PaperId(paperId));
         List<BlankQuiz> blankQuizzes = blankQuizFrom(command);
         final String teacherId = command.getTeacherId();
+
         paper.reassemble(teacherId, blankQuizzes);
+    }
+
+    private List<BlankQuiz> blankQuizFrom(AssemblePaperCommand command) {
+        return command.getQuizzes().stream().map(quiz -> {
+            return new BlankQuiz(quiz.getQuizId(), quiz.getScore());
+        }).collect(Collectors.toList());
     }
 }
