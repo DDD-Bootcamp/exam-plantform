@@ -18,9 +18,8 @@
 
 ### 现有操作
 
-获取所有paper GET /papers
-
-组卷 POST /papers
-
-重新组卷 PUT /papsrs/:paper_id
-
+| 功能          | Method | URI               |
+| ------------- | ------ | ----------------- |
+| 获取所有paper | GET    | /papers           |
+| 组卷          | POST   | /papers           |
+| 重新组卷      | PUT    | /papers/:paper_id |
