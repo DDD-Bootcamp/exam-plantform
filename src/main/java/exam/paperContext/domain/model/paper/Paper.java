@@ -26,7 +26,7 @@ public class Paper implements Entity<Paper> {
     }
 
     private static void validateQuizzes(List<BlankQuiz> blankQuizzes) {
-        if(blankQuizzes.size() > 20 || blankQuizzes.size() < 2) {
+        if(blankQuizzes.size() > 20 || blankQuizzes.size() < 5) {
             throw new IllegalQuizzesCountException(blankQuizzes.size());
         }
     }

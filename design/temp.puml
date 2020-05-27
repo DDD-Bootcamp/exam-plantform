@@ -1,0 +1,6 @@
+@startuml
+    interface PaperRepository {
+        find(): Paper
+        save()
+    }
+@enduml
