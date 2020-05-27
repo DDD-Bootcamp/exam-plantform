@@ -11,7 +11,7 @@ public class BlankQuiz implements ValueObject<BlankQuiz> {
     private int score;
 
     public BlankQuiz(String quizId, int score) {
-        if(score > 100) {
+        if(score > 100 || score < 0) {
             throw new IllegalScoreException(score);
         }
         this.quizId = quizId;
