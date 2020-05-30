@@ -1,12 +1,14 @@
 package exam.paperContext.domain.model.paper;
 
 import exam.paperContext.domain.shared.Entity;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+@EqualsAndHashCode(of = {"paperId"})
 public class Paper implements Entity<Paper> {
     private PaperId paperId;
     private List<BlankQuiz> blankQuizzes;

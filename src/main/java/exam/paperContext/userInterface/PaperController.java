@@ -4,6 +4,7 @@ import exam.paperContext.application.AssemblePaperCommand;
 import exam.paperContext.application.PaperService;
 import exam.paperContext.domain.model.paper.Paper;
 import exam.paperContext.domain.model.paper.PaperId;
+import exam.paperContext.infrastructure.MemoryPaperReadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,12 @@ import java.util.List;
 public class PaperController {
 
     private PaperService paperService;
+    private MemoryPaperReadRepository paperReadRepository;
 
     @Autowired
-    public PaperController(PaperService paperService) {
+    public PaperController(PaperService paperService, MemoryPaperReadRepository paperReadRepository) {
         this.paperService = paperService;
+        this.paperReadRepository = paperReadRepository;
     }
 
     @PostMapping("/papers")
@@ -28,9 +31,9 @@ public class PaperController {
         return PaperDTO.from(paperId);
     }
 
-    @GetMapping("/papers")
+    @GetMapping("/papers") //读请求,获取倒序排列的Paper
     List<Paper> getAll() {
-        return paperService.getAll();
+        return paperReadRepository.getAllByReversedOrder();
     }
 
     @PutMapping("/papers/{paperId}")
