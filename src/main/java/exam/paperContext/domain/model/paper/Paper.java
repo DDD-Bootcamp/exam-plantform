@@ -1,7 +1,10 @@
 package exam.paperContext.domain.model.paper;
 
 import exam.paperContext.domain.shared.Entity;
+import exam.paperContext.domain.shared.ValueObject;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -28,8 +31,13 @@ public class Paper implements Entity<Paper> {
     }
 
     private static void validateQuizzes(List<BlankQuiz> blankQuizzes) {
-        if(blankQuizzes.size() > 20 || blankQuizzes.size() < 5) {
+        if (blankQuizzes.size() > 20 || blankQuizzes.size() < 5) {
             throw new IllegalQuizzesCountException(blankQuizzes.size());
+        }
+
+        int totalScore = blankQuizzes.stream().mapToInt(BlankQuiz::getScore).sum();
+        if (totalScore != 100) {
+            throw new IllegalScoreException(totalScore);
         }
     }
 
@@ -58,5 +66,17 @@ public class Paper implements Entity<Paper> {
         validateQuizzes(blankQuizzes);
         this.teacherId = teacherId;
         this.blankQuizzes = blankQuizzes;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class BlankQuiz implements ValueObject<BlankQuiz> {
+        private String quizId;
+        private int score;
+
+        @Override
+        public boolean sameValueAs(BlankQuiz other) {
+            return false;
+        }
     }
 }

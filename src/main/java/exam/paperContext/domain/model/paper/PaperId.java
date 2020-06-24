@@ -11,6 +11,11 @@ import java.util.Objects;
 public class PaperId implements ValueObject<PaperId> {
     private String id;
 
+    public String nextId() {
+        //TODO Generate ID
+        return null;
+    }
+
     @Override
     public boolean sameValueAs(PaperId other) {
         return equals(other);

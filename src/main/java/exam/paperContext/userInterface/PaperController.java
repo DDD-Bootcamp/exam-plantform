@@ -1,7 +1,7 @@
 package exam.paperContext.userInterface;
 
 import exam.paperContext.application.AssemblePaperCommand;
-import exam.paperContext.application.PaperService;
+import exam.paperContext.application.PaperApplicationService;
 import exam.paperContext.domain.model.paper.Paper;
 import exam.paperContext.domain.model.paper.PaperId;
 import exam.paperContext.infrastructure.MemoryPaperReadRepository;
@@ -14,12 +14,12 @@ import java.util.List;
 @RestController
 public class PaperController {
 
-    private PaperService paperService;
+    private PaperApplicationService paperApplicationService;
     private MemoryPaperReadRepository paperReadRepository;
 
     @Autowired
-    public PaperController(PaperService paperService, MemoryPaperReadRepository paperReadRepository) {
-        this.paperService = paperService;
+    public PaperController(PaperApplicationService paperApplicationService, MemoryPaperReadRepository paperReadRepository) {
+        this.paperApplicationService = paperApplicationService;
         this.paperReadRepository = paperReadRepository;
     }
 
@@ -27,7 +27,7 @@ public class PaperController {
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     PaperDTO assemble(@RequestBody AssemblePaperCommand command) {
-        final PaperId paperId = paperService.assemblePaper(command);
+        final PaperId paperId = paperApplicationService.assemblePaper(command);
         return PaperDTO.from(paperId);
     }
 
@@ -39,6 +39,6 @@ public class PaperController {
     @PutMapping("/papers/{paperId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void reassemble(@PathVariable String paperId, @RequestBody AssemblePaperCommand command) {
-        paperService.reassemblePaper(paperId, command);
+        paperApplicationService.reassemblePaper(paperId, command);
     }
 }
