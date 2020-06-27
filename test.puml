@@ -1,0 +1,4 @@
+@startuml
+frontend -> backend: post: /api/login
+backend -> frontend: token
+@enduml
