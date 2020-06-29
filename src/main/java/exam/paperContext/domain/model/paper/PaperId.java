@@ -11,7 +11,7 @@ import java.util.Objects;
 public class PaperId implements ValueObject<PaperId> {
     private String id;
 
-    public String nextId() {
+    public static PaperId nextId() {
         //TODO Generate ID
         return null;
     }

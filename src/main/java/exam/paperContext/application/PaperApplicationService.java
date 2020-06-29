@@ -29,7 +29,7 @@ public class PaperApplicationService {
     public PaperId assemblePaper(AssemblePaperCommand command) {
         List<BlankQuizDto> blankQuizDtos = blankQuizFrom(command);
         final String teacherId = command.getTeacherId();
-        final PaperId paperId = paperRepository.nextPaperId();
+        final PaperId paperId = PaperId.nextId();
 
         final Paper paper = Paper.assemble(paperId, teacherId, blankQuizDtos.stream()
                 .map(BlankQuizDto::toBlankQuiz)
