@@ -14,19 +14,15 @@ public class MemoryPaperRepository implements PaperRepository {
 
     @Override
     public Paper find(PaperId paperId) {
-        return papers.stream().filter(paper-> {
-            return paper.getPaperId().equals(paperId);
-        }).findFirst().orElseThrow(NullPointerException::new);
+        return papers.stream().filter(paper-> paper.getPaperId()
+            .equals(paperId))
+            .findFirst()
+            .orElseThrow(NullPointerException::new);
     }
 
     @Override
     public void save(Paper paper) {
         papers.add(paper);
-    }
-
-    @Override
-    public PaperId nextPaperId() {
-        return new PaperId("paper-" + UUID.randomUUID().toString());
     }
 
     @Override

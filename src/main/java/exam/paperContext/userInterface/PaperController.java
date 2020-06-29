@@ -39,6 +39,7 @@ public class PaperController {
     @PutMapping("/papers/{paperId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void reassemble(@PathVariable String paperId, @RequestBody AssemblePaperCommand command) {
+
         paperApplicationService.reassemblePaper(paperId, command);
     }
 }

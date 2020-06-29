@@ -7,7 +7,5 @@ public interface PaperRepository {
 
     void save(Paper paper);
 
-    PaperId nextPaperId();
-
     List<Paper> getAll();
 }

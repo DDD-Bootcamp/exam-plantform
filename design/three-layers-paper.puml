@@ -11,7 +11,7 @@ package threeLayer {
 
     class Paper {
         paperId: PaperId
-        quizzes: List<Quiz>
+        quizzes: List<BlankQuiz>
     }
 
     class PaperDAO {
