@@ -2,12 +2,12 @@
 actor Teacher
 Teacher -> BlankQuizController : PUT /paper/:blank_quiz_id
 BlankQuizController -> BlankQuizController: transform()
-BlankQuizController -> BlankQuizApplicationService : updateBlankQuiz()
+BlankQuizController -> BlankQuizApplicationService : reviseBlankQuiz()
 entity BlankQuiz
 BlankQuizApplicationService -> BlankQuizRepository: find()
 database blankquizDB
 BlankQuizRepository -> blankquizDB: SELECT ***
-BlankQuizApplicationService -> BlankQuiz : update()
+BlankQuizApplicationService -> BlankQuiz : revise()
 BlankQuizApplicationService -> BlankQuizRepository: save()
 
 BlankQuizRepository -> blankquizDB: UPDATE ***
