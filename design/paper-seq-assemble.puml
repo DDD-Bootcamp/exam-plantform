@@ -2,11 +2,12 @@
 actor Teacher
 Teacher -> PaperController : POST /paper
 PaperController -> PaperController: transform()
-PaperController -> PaperService : assemblePaper()
-PaperService -> PaperRepository: nextPaperId()
+PaperController -> PaperApplicationService : assemblePaper()
+PaperApplicationService -> PaperId: nextPaperId()
 entity Paper
-PaperService -> Paper : assemble()
-PaperService -> PaperRepository: save()
+PaperApplicationService -> Paper : assemble()
+PaperApplicationService -> PaperRepository: save()
+
 database paperDB
 PaperRepository -> paperDB: INSERT ***
 

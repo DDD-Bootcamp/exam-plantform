@@ -3,13 +3,13 @@
 package layeredArch {
     class "PaperController" as oc{}
 
-    class "PaperService" as os {
+    class "PaperApplicationService" as os {
         assemblePaper()
     }
 
     class "Paper" as od {
         paperId: PaperId
-        quizzes: List<Quiz>
+        quizzes: List<BlankQuiz>
         assemble()
     }
 

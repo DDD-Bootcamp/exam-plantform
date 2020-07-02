@@ -2,13 +2,13 @@
 actor Teacher
 Teacher -> PaperController : PUT /paper/:paper_id
 PaperController -> PaperController: transform()
-PaperController -> PaperService : reassemblePaper()
+PaperController -> PaperApplicationService : reassemblePaper()
 entity Paper
-PaperService -> PaperRepository: find()
+PaperApplicationService -> PaperRepository: find()
 database paperDB
 PaperRepository -> paperDB: SELECT ***
-PaperService -> Paper : reassemble()
-PaperService -> PaperRepository: save()
+PaperApplicationService -> Paper : reassemble()
+PaperApplicationService -> PaperRepository: save()
 
 PaperRepository -> paperDB: UPDATE ***
 
