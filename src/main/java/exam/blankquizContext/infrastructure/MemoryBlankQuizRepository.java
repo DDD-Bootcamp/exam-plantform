@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MemoryBlankQuizRepository implements BlankQuizRepository {
-    private Set<BlankQuiz> blankQuizs = new HashSet<>();
+    private Set<BlankQuiz> blankQuizzes = new HashSet<>();
 
     @Override
     public BlankQuiz find(BlankQuizId blankQuizId) {
-        return blankQuizs.stream().filter(blankQuiz-> blankQuiz.getBlankQuizId()
+        return blankQuizzes.stream().filter(blankQuiz-> blankQuiz.getBlankQuizId()
             .equals(blankQuizId))
             .findFirst()
             .orElseThrow(NullPointerException::new);
@@ -21,9 +21,13 @@ public class MemoryBlankQuizRepository implements BlankQuizRepository {
 
     @Override
     public void save(BlankQuiz blankQuiz) {
-        blankQuizs.add(blankQuiz);
+        blankQuizzes.add(blankQuiz);
     }
 
+    @Override
+    public void delete(BlankQuizId blankQuizId) {
+        blankQuizzes.removeIf(e -> e.getBlankQuizId().equals(blankQuizId));
+    }
 
 
 }

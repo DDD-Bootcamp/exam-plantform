@@ -25,7 +25,7 @@ public class BlankQuiz implements Entity<BlankQuiz> {
 
   public static BlankQuiz create(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score, LocalDateTime createdTime,
                                  LocalDateTime updatedTime) {
-    if (score < 0 || score > 100) {
+    if (score <= 0 || score > 100) {
       throw new IllegalBlankQuizScoreException(score);
     }
     return new BlankQuiz(blankQuizId, teacherId, content, referenceAnswer, score, createdTime, updatedTime);
@@ -34,15 +34,9 @@ public class BlankQuiz implements Entity<BlankQuiz> {
 
   public  BlankQuiz revise(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score, LocalDateTime createdTime,
                                  LocalDateTime updatedTime) {
-    if (score < 0 || score > 100) {
+    if (score <= 0 || score > 100) {
       throw new IllegalBlankQuizScoreException(score);
     }
-    return new BlankQuiz(blankQuizId, teacherId, content, referenceAnswer, score, createdTime, updatedTime);
-  }
-
-  public static BlankQuiz delete(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score, LocalDateTime createdTime,
-                                 LocalDateTime updatedTime) {
-
     return new BlankQuiz(blankQuizId, teacherId, content, referenceAnswer, score, createdTime, updatedTime);
   }
 
