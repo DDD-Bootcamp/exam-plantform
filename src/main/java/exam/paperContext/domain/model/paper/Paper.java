@@ -1,7 +1,7 @@
 package exam.paperContext.domain.model.paper;
 
-import exam.paperContext.domain.shared.Entity;
-import exam.paperContext.domain.shared.ValueObject;
+import exam.shared.Entity;
+import exam.shared.ValueObject;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

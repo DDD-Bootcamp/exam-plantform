@@ -1,4 +1,4 @@
-package exam.paperContext.domain.shared;
+package exam.shared;
 
 public interface Entity<T> {
     boolean sameIdentityAs(T other);
