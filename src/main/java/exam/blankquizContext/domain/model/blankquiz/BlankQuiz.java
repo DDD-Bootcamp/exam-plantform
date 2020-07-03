@@ -13,35 +13,44 @@ public class BlankQuiz implements Entity<BlankQuiz> {
   private LocalDateTime createdTime;
   private LocalDateTime updatedTime;
 
-  private BlankQuiz(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score, LocalDateTime createdTime, LocalDateTime updatedTime) {
+  private BlankQuiz(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score) {
     this.blankQuizId = blankQuizId;
     this.teacherId = teacherId;
     this.content = content;
     this.referenceAnswer = referenceAnswer;
     this.score = score;
-    this.createdTime = createdTime;
-    this.updatedTime = updatedTime;
   }
 
-  public static BlankQuiz create(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score, LocalDateTime createdTime,
-                                 LocalDateTime updatedTime) {
+  public static BlankQuiz create(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score) {
     if (score <= 0 || score > 100) {
       throw new IllegalBlankQuizScoreException(score);
     }
-    return new BlankQuiz(blankQuizId, teacherId, content, referenceAnswer, score, createdTime, updatedTime);
+    BlankQuiz blankQuiz = new BlankQuiz(blankQuizId, teacherId, content, referenceAnswer, score);
+    blankQuiz.setCreatedTime(LocalDateTime.now());
+    return blankQuiz;
   }
 
 
-  public  BlankQuiz revise(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score, LocalDateTime createdTime,
-                                 LocalDateTime updatedTime) {
+  public  BlankQuiz revise(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score) {
     if (score <= 0 || score > 100) {
       throw new IllegalBlankQuizScoreException(score);
     }
-    return new BlankQuiz(blankQuizId, teacherId, content, referenceAnswer, score, createdTime, updatedTime);
+
+    BlankQuiz blankQuiz = new BlankQuiz(blankQuizId, teacherId, content, referenceAnswer, score);
+    blankQuiz.setUpdatedTime(LocalDateTime.now());
+    return blankQuiz;
   }
 
   public BlankQuizId getBlankQuizId() {
     return blankQuizId;
+  }
+
+  private void setCreatedTime(LocalDateTime createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  private void setUpdatedTime(LocalDateTime updatedTime) {
+    this.updatedTime = updatedTime;
   }
 
   @Override
