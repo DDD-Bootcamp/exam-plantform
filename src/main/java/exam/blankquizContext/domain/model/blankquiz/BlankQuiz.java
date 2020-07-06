@@ -31,18 +31,27 @@ public class BlankQuiz implements Entity<BlankQuiz> {
   }
 
 
-  public  BlankQuiz revise(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score) {
+  public BlankQuiz revise(BlankQuizId blankQuizId, String teacherId, String content, String referenceAnswer, int score) {
     if (score <= 0 || score > 100) {
       throw new IllegalBlankQuizScoreException(score);
     }
 
-    BlankQuiz blankQuiz = new BlankQuiz(blankQuizId, teacherId, content, referenceAnswer, score);
-    blankQuiz.setUpdatedTime(LocalDateTime.now());
-    return blankQuiz;
+    this.blankQuizId = blankQuizId;
+    this.teacherId = teacherId;
+    this.content = content;
+    this.referenceAnswer = referenceAnswer;
+    this.score = score;
+
+    this.setUpdatedTime(LocalDateTime.now());
+    return this;
   }
 
   public BlankQuizId getBlankQuizId() {
     return blankQuizId;
+  }
+
+  public int getScore() {
+    return score;
   }
 
   private void setCreatedTime(LocalDateTime createdTime) {
