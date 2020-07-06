@@ -26,6 +26,7 @@ public class MemoryBlankQuizRepository implements BlankQuizRepository {
 
     @Override
     public void delete(BlankQuizId blankQuizId) {
+
         blankQuizzes.removeIf(e -> e.getBlankQuizId().equals(blankQuizId));
     }
 

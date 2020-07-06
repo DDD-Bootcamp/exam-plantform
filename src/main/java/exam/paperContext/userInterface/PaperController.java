@@ -14,8 +14,8 @@ import java.util.List;
 @RestController
 public class PaperController {
 
-    private PaperApplicationService paperApplicationService;
-    private MemoryPaperReadRepository paperReadRepository;
+    private final PaperApplicationService paperApplicationService;
+    private final MemoryPaperReadRepository paperReadRepository;
 
     @Autowired
     public PaperController(PaperApplicationService paperApplicationService, MemoryPaperReadRepository paperReadRepository) {

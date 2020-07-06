@@ -18,26 +18,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/quizzes")
+@RequestMapping("/blankquizzes")
 public class BlankQuizController {
-    private BlankQuizApplicationService blankQuizApplicationService;
 
-    @DeleteMapping("/{quizId}")
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable final String quizId) {
-        blankQuizApplicationService.deleteQuiz(new DeleteBlankQuizCommand(quizId));
-    }
+  private BlankQuizApplicationService blankQuizApplicationService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody final CreateBlankQuizCommand command) throws IllegalScoreException {
-         BlankQuizDto.from(blankQuizApplicationService.createQuiz(command).toString());
-    }
+  public BlankQuizController(BlankQuizApplicationService blankQuizApplicationService) {
+    this.blankQuizApplicationService = blankQuizApplicationService;
+  }
 
-    @PutMapping("/{quizId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable final String quizId,
-                               @RequestBody final ReviseBlankQuizCommand command) {
-         BlankQuizDto.from(blankQuizApplicationService.reviseQuiz(quizId, command).toString());
-    }
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public void create(@RequestBody final CreateBlankQuizCommand command) throws IllegalScoreException {
+    blankQuizApplicationService.createQuiz(command);
+  }
+
+  @PutMapping("/{blankquizId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void update(@PathVariable final String quizId,
+                     @RequestBody final ReviseBlankQuizCommand command) {
+    blankQuizApplicationService.reviseQuiz(quizId, command);
+  }
+
+  @DeleteMapping("/{blankquizId}")
+  @ResponseStatus(HttpStatus.OK)
+  public void delete(@PathVariable final String quizId) {
+    blankQuizApplicationService.deleteQuiz(new DeleteBlankQuizCommand(quizId));
+  }
 }

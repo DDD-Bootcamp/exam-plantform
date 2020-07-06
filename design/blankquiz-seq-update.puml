@@ -1,7 +1,6 @@
 @startuml
 actor Teacher
-Teacher -> BlankQuizController : PUT /paper/:blank_quiz_id
-BlankQuizController -> BlankQuizController: transform()
+Teacher -> BlankQuizController : PUT /blankquiz/:blank_quiz_id
 BlankQuizController -> BlankQuizApplicationService : reviseBlankQuiz()
 entity BlankQuiz
 BlankQuizApplicationService -> BlankQuizRepository: find()
